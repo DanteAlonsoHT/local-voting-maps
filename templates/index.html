@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mapeo de Elecciones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div>
+        <h2>Archivos</h2>
+        <div class="pagination">
+            {% for i in range(files) %}
+                <a href="?file_index={{ i }}&column={{ column }}" class="page-link">{{ file_names[i] }}</a>
+            {% endfor %}
+        </div>
+    </div>    
+    <h1>Mapeo de Elecciones en León - {{file_names[file_index]}}</h1>
+    <div class="map-container">
+        <h2>Mapas de Visualización</h2>
+        {% for map_file, formatted_name in map_files %}
+            <div class="map-item">
+                <h5>{{ formatted_name }}</h5>
+                <iframe src="{{ url_for('static', filename=map_file) }}" width="600" height="400"></iframe>
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        <h2>Tabla de Datos en León {{file_names[file_index]}}</h2>
+        <div class="table-container">
+            {{ table | safe }}
+        </div>
+    </div>
+</body>
+</html>
+
